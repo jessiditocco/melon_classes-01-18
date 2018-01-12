@@ -18,11 +18,11 @@ class MelonType(object):
         self.is_bestseller = is_bestseller
         self.name = name
 
-    # def __repr__(self):
-    #     """Provide helpful output when printing"""
+    def __repr__(self):
+        """Provide helpful output when printing"""
 
-    #     repr_str = "<MelonType code={code} name={name}>"
-    #     return repr_str.format(code=self.code, name=self.name)
+        repr_str = "<MelonType code={code} name={name}>"
+        return repr_str.format(code=self.code, name=self.name)
 
     def add_pairing(self, pairing):
         """Add a food pairing to the instance's pairings list."""
@@ -49,6 +49,7 @@ def make_melon_types():
     yellow_watermelon.add_pairing(['icecream'])
 
     all_melon_types = [muskmelon, casaba, crenshaw, yellow_watermelon]
+
 
     # print all_melon_types
     return all_melon_types
@@ -129,7 +130,7 @@ def get_sellability_report(melons):
 
     for i, harvested_melon in enumerate(melons, 1):
         print "Melon ", i
-        print " -Melon type: {}".format(harvested_melon.melon_type.name)
+        print " -Melon type: {}".format(harvested_melon.melon_type)
         print " -Shape rating: {}".format(harvested_melon.shape_rating)
         print " -Color rating: {}".format(harvested_melon.color_rating)
         print " -Harvested from Field: {}".format(harvested_melon.harvested_from)
@@ -140,3 +141,28 @@ melon_types_dictionary = make_melon_type_lookup(make_melon_types())
 melon_collection = make_melons(melon_types_dictionary)
 
 get_sellability_report(melon_collection)
+
+
+
+
+
+def make_melons_from_file(file_name):
+    """Open file and read through each line of the file."""
+
+    final_list = []
+
+    with open(file_name) as melon_data:
+        for line in melon_data:
+            line = line.rstrip()
+            words = line.split()
+            melon = Melon(words[5], words[1], words[3], words[11], words[8])
+            final_list.append(melon)
+
+    print final_list
+    return final_list
+
+
+# melon_types_dictionary = make_melon_type_lookup(make_melon_types())
+# melon_collection = make_melons_from_file('harvest_log.txt')
+
+# get_sellability_report(melon_collection)
